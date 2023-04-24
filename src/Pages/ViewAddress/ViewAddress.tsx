@@ -1,41 +1,43 @@
 import React from 'react';
-import { HeadingTag,SubHeadTag,SubDetails } from './ViewAddressStyle';
-function Viewaddress({ state,onFormChange }: any) {
-    const GoBack=()=>{
+import { HeadingTag, SubHeadTag, SubDetails,Container } from './ViewAddressStyle';
+function Viewaddress({ state, onFormChange }: any) {
+    const GoBack = () => {
         onFormChange(false)
     }
     return (
         <>
-            <div>
+            <Container>
                 <h1>
                     {state.firstname} {state.lastname}
                 </h1>
                 <div>
-                    <HeadingTag>Addresses</HeadingTag><hr></hr>
+                    <HeadingTag>Addresses</HeadingTag>
                     <div>
                         {state.address.map((addressitem: any, addressindex: number) => (
-                            <SubDetails key={addressindex}>Line1:{addressitem.line1}<br/>Line2:{addressitem.line2}<br/>City:{addressitem.city}<br/>State:{addressitem.state}<br/>Country:{addressitem.country}<br/>Zipcode:{addressitem.zipcode}<br/>Type Address:{addressitem.typeaddress}</SubDetails>
+                            <>
+                                <SubHeadTag>Address {addressindex+1} </SubHeadTag>
+                                <SubDetails key={addressindex}>Line1:{addressitem.line1}<br />Line2:{addressitem.line2}<br />City:{addressitem.city}<br />State:{addressitem.state}<br />Country:{addressitem.country}<br />Zipcode:{addressitem.zipcode}<br />Type:{addressitem.typeaddress}</SubDetails>
+                            </>
                         ))}
                     </div>
-                    <HeadingTag>Phone Numbers</HeadingTag><hr></hr>
+                    <HeadingTag>Phone Numbers</HeadingTag>
                     {state.phone.map((phoneitem: any, phoneindex: number) => (
                         <div key={phoneindex}>
-                            <SubDetails>{phoneitem.phonenumber}</SubDetails>
-                            <SubDetails>Type Phone:{phoneitem.typephone}</SubDetails>
+                            <SubHeadTag>{phoneitem.typephone}-<SubDetails>{phoneitem.phonenumber}</SubDetails></SubHeadTag>
                         </div>
                     ))}
                 </div>
-                <HeadingTag>Email Addresses</HeadingTag><hr></hr>
+                <HeadingTag>Email Addresses</HeadingTag>
                 <div>
                     {state.email.map((emailitem: any, emailindex: number) => (
                         <div key={emailindex}>
-                            <SubDetails>{emailitem.email}</SubDetails>
-                            <SubDetails>Type Email:{emailitem.typeemail}</SubDetails>
+                            <SubHeadTag>{emailitem.typeemail}-<SubDetails>{emailitem.email}</SubDetails></SubHeadTag>
+                            
                         </div>
                     ))}
                 </div>
                 <button onClick={GoBack}>OK</button>
-            </div>
+            </Container>
         </>
     )
 }
