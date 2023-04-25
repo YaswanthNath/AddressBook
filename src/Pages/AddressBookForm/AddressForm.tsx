@@ -290,7 +290,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                             {errors['typeemail' + index]?.type === "required" && (<ErrorText>Type Email is required</ErrorText>)}
                                         </FeildDiv>
                                     </InputDiv2>
-                                    <DiscardButton2 {...register('discardButton')} onClick={(e) => handleDiscardEmail(index, e)} src={wrong} style={{ display: index === 1 ? 'block' : 'none' }} />
+                                    <DiscardButton2 {...register('discardButton')} onClick={(e) => handleDiscardEmail(index, e)} src={wrong} style={{ display: (formData.address.length>1) ? 'block' : 'none' }} />
                                 </InputDiscardDiv>
                             ))}
                         </FormPart>
@@ -318,7 +318,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                             {errors['typephone' + index]?.type === "required" && <ErrorText>Enter Type Phone</ErrorText>}
                                         </FeildDiv>
                                     </InputDiv3>
-                                    <DiscardButton3 {...register('discardButton')} onClick={(e) => handleDiscardPhone(index, e)} src={wrong} style={{ display: index === 1 ? 'block' : 'none' }} />
+                                    <DiscardButton3 {...register('discardButton')} onClick={(e) => handleDiscardPhone(index, e)} src={wrong} style={{ display: (formData.address.length>1) ? 'block' : 'none' }} />
                                 </InputDiscardDiv>
                             ))}
                         </FormPart>
