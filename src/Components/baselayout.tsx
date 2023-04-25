@@ -48,12 +48,18 @@ export const Head=styled.div`
     border:1px solid black;
     position:fixed;
     background-color:white;
-   z-index:1;
+    z-index:1;
+    @media (max-width: 400px) {
+        margin-bottom:5px;
+    }
 `;
 export const HeadDiv1=styled.div`
     display:flex;
     height:80px;
     margin:10px auto 10px 0px;
+    @media (max-width: 400px) {
+        height:60px
+    }
 `;
 
 export const HeadDiv2=styled.div`
@@ -81,7 +87,7 @@ export const SidebarCon=styled.section`
     }
     @media (max-width: 400px) {
         width:99.5%;
-        top:99px;
+        top:81px;
         height:7vh;
         border:1px solid black;
         background-color:white;

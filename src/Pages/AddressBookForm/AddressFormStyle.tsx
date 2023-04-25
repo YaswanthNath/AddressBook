@@ -13,7 +13,8 @@ export const Container = styled.div`
     border:1px solid black;
     @media (max-width: 400px) {
         margin:20px 5px;
-        width:98%; 
+        margin-left:0px;
+        width:95%; 
     }
     
 `;
@@ -55,12 +56,16 @@ export const Input = styled.input`
         font-size:15px;
     }
     outline:none;
+    &.error {
+    border-color: red;
+    }
+    
 `;
 export const Select = styled.select`
     line-height:30px;
     width:95%;
     font-size:18px;
-    margin:10px auto;
+    margin:6px auto;
     display:inline;
     border:1px solid grey;
     border-radius:5px;
@@ -71,9 +76,6 @@ export const Select = styled.select`
         height:35px;
         width:98%;
         font-size:15px;
-    }
-    &.open {
-    height: 50px;
     }
     outline:none;
 `;
@@ -93,7 +95,8 @@ export const InputDiv = styled.section`
         justify-content:center;
     }
 `;
-export const InputDiv1 = styled(InputDiv)``;
+export const InputDiv1 = styled(InputDiv)`
+margin-top:10px`;
 export const InputDiv2 = styled(InputDiv)`
 width:90%;
 `;
@@ -190,11 +193,16 @@ export const ErrrorTextDiscard = styled(ErrorText)`
     margin:40px auto;
     fonst-size:13px;
 `;
+export const ErrrorTextPlus = styled(ErrorText)` 
+    margin-top:0px;
+    margin-left:5px;
+    fonst-size:12px;
+`;
 export const NavepageDiv = styled.div`
         overflow: auto;
         width:86%;
         margin:5px;
-        margin-left:5px;
+        margin-left:7px;
         position:absolute;
         top:110px;
         left:125px;
@@ -212,12 +220,12 @@ export const NavepageDiv = styled.div`
     }
     @media (max-width: 400px) {
         height: 80%;
-        margin:5px;
-        margin-left:10px;
+        margin:0px;
+        margin-left:0px;
         position:absolute;
         top:150px;
         left:0px;
-        width:96%;
+        width:98%;
         overflow-x:hidden;
     }
 `;

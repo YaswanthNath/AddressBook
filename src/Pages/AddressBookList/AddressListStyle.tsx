@@ -14,6 +14,11 @@ export const Table = styled.table`
     border:1px solid black;
     margin-left:5px;
     margin-bottom:0px;
+    @media (max-width: 400px) {
+        width:95%;
+        margin-left:0px;
+        padding:0px;
+    }
 `;
 export const TableDitems = styled.td`
         font-size:17px;
@@ -23,8 +28,9 @@ export const TableDitems = styled.td`
     border:1px solid black;
 
     @media (max-width: 400px) {
-        font-size:13px;
-        padding:8px 3px;
+        white-space: normal;
+        font-size:12px;
+        padding:8px 0px;
         text-align:center;
         border:1px solid black;
     }
@@ -63,7 +69,8 @@ export const NoDataText = styled.div`
     margin-left:5px;
     margin-right:0px;
     @media (max-width: 400px) {
-        width:99.4%;
+        margin-left:0px;
+        width:94.5%;
         font-size:12px;
     }
 `;
@@ -74,6 +81,11 @@ export const HeaderHome = styled.div`
     padding:5px;
     margin-left:15px;  
     box-sizing:border-box;
+    @media (max-width: 400px) {
+        width:95%;
+        margin-left:10px;
+        padding:0px;
+    }
 `;
 
 export const Nav = styled.nav`
@@ -111,7 +123,7 @@ export const AddressLink = styled.link`
 `;
 export const SearchHeader = styled.div`
     width:80%;
-    margin:10px 10px 10px 5px;
+    margin:10px 10px 10px 0px;
 `;
 export const SearchBar = styled.input`
     width:50%;
@@ -127,6 +139,9 @@ export const ViewAddressButton = styled.button`
     background:none;
 `;
 export const Buttons = styled.button`
+    font-size:12px;
+    padding:2px;
+    margin:2px;
     cursor:pointer;
 `;
 export const NoSearchItem = styled.div`
@@ -139,7 +154,8 @@ export const NoSearchItem = styled.div`
     margin-right:0px;
     font-size:16px;
     @media (max-width: 400px) {
-        width:99.4%;
+        width:94.5%;
+        margin-left:0px;
         font-size:12px;
     }
 `;

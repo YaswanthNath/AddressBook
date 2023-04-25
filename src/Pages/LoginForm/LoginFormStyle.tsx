@@ -47,7 +47,7 @@ export const Input=styled.input`
     line-height:25px;
     width:70%;
     font-size:18px;
-    margin:10px auto 13px 10px;
+    margin:10px auto 13px 17px;
     padding-left:55px;
     padding-top:7px;
     padding-bottom:9px;
@@ -66,7 +66,7 @@ export const IconInput=styled.img`
     position:absolute;
     z-index:2;
     margin-top:10px;
-    margin-left:10px;
+    margin-left:17px;
     border-radius:5px 0px 0px 5px;
     background:#DCDCDC;
 `;

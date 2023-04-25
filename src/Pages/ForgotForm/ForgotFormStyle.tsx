@@ -87,6 +87,7 @@ export const Input=styled.input`
     display:block;
     border:1px solid grey;
     border-radius:5px;
+    outline:none;
 `;
 export const SendB=styled.button`
     color:white;

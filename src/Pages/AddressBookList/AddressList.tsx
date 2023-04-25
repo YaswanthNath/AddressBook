@@ -12,7 +12,7 @@ function AddressList({ Click, View }: any) {
     const [AddressToEdit, setAddressToEdit] = useState();
     const [selectedData, SetSelectedData] = useState();
     const [viewAddress, setViewAddress] = useState(false);
-    const [homeClick, setHomeClick] = useState(Click == true ? false : true);
+    const [homeClick, setHomeClick] = useState(Click? false : true);
     const [viewClick, setViewClick] = useState(false);
     const [SearchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
