@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import AddressFormPage from '../AddressBookForm/AddressForm';
 import Viewaddress from '../ViewAddress/ViewAddress';
 import NumberCarousel from '../../Components/Pagination/Pagination';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AddressList({ Click, View }: any) {
     const [AddressData, setAddressData] = useState<any>([]);
     const [ClickCreate, setClickCreate] = useState(Click);
@@ -12,12 +14,19 @@ function AddressList({ Click, View }: any) {
     const [AddressToEdit, setAddressToEdit] = useState();
     const [selectedData, SetSelectedData] = useState();
     const [viewAddress, setViewAddress] = useState(false);
-    const [homeClick, setHomeClick] = useState(Click? false : true);
+    const [homeClick, setHomeClick] = useState(Click ? false : true);
     const [viewClick, setViewClick] = useState(false);
     const [SearchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [successMessage, setSuccessMessage] = useState("");
     const navigate = useNavigate();
     const formRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (successMessage) {
+            toast.success(successMessage, { position: toast.POSITION.BOTTOM_RIGHT });
+            setSuccessMessage("");
+        }   
+    }, [successMessage, setSuccessMessage]);
     useEffect(() => {
         if (formRef.current !== null) {
             formRef.current.scrollIntoView({ block: "start" });
@@ -31,10 +40,12 @@ function AddressList({ Click, View }: any) {
     }, [View])
     const handleSubmit = (data: any) => {
         if (index == null) {
-            setAddressData([...AddressData, data])
+            setAddressData([...AddressData, data]);
+            setSuccessMessage("Address book added successfully")
         }
         else {
             AddressData[index] = data
+            setSuccessMessage("Data updated successful");
         }
         setIndex(null);
         setClickEdit(false);
@@ -93,7 +104,7 @@ function AddressList({ Click, View }: any) {
             </HeaderHome>
             <Container>
                 <ListCon>
-                    {viewAddress ? <Viewaddress state={selectedData} onFormChange={handleChaneView}/> :
+                    {viewAddress ? <Viewaddress state={selectedData} onFormChange={handleChaneView} /> :
 
                         (ClickCreate ?
                             <>
@@ -180,7 +191,7 @@ function AddressList({ Click, View }: any) {
 
                 </ListCon>
             </Container>
-
+            <ToastContainer />
         </MainDiv >
     )
 }
