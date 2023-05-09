@@ -43,7 +43,7 @@ export const HeadText2=styled.p`
     float right;
 `;
 export const Head=styled.div`
-    width:99.5%;    
+    width:99.9%;    
     display:flex;
     border:1px solid black;
     position:fixed;

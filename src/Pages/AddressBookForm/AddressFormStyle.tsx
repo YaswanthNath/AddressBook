@@ -6,6 +6,7 @@ export const PlusIcon = styled.img`
     height:25px;
     margin-top:20px;
     cursor:pointer;
+    
 `;
 export const Container = styled.div`
     width:100%; 
@@ -13,7 +14,7 @@ export const Container = styled.div`
     border:1px solid black;
     @media (max-width: 400px) {
         margin:20px 5px;
-        margin-left:0px;
+        margin-left:12px;
         width:95%; 
     }
     
@@ -79,7 +80,7 @@ export const Select = styled.select`
     }
     outline:none;
 `;
-export const OptionElement=styled.option`
+export const OptionElement = styled.option`
     width:100px;
     height:100px;
 `;

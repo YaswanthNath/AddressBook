@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import Plus from '../../Assets/plus.svg'
-import { ButtonD, CancelB, Container, DiscardButton1, DiscardButton2, DiscardButton3, ErrrorTextDiscard, ErrrorTextPlus,ErrorText, FeildDiv, Form, FormPart, Input, InputDiscardDiv, InputDiv, InputDiv1, InputDiv2, InputDiv3, Label, LabIcDiv, PlusIcon, SaveB, Select } from '../../Pages/AddressBookForm/AddressFormStyle';
+import { ButtonD, CancelB, Container, DiscardButton1, DiscardButton2, DiscardButton3, ErrrorTextDiscard, ErrrorTextPlus, ErrorText, FeildDiv, Form, FormPart, Input, InputDiscardDiv, InputDiv, InputDiv1, InputDiv2, InputDiv3, Label, LabIcDiv, PlusIcon, SaveB, Select } from '../../Pages/AddressBookForm/AddressFormStyle';
 import CountryData from '../../Data/CountryData.json'
 import wrong from '../../Assets/wrong.svg';
 export interface AddressBook {
@@ -51,14 +51,13 @@ const data = {
     }]
 };
 function AddressFormPage({ onFormChange, addressToEdit }: any) {
-    const { register, handleSubmit, setError, formState: { errors } ,clearErrors} = useForm({ mode: 'all' });
+    const { register, handleSubmit, setError, formState: { errors }, clearErrors } = useForm({ mode: 'all' });
     const [formData, setFormData] = useState<AddressBook | any>(data);
     const [isSubmitted, setSubmit] = useState(false);
     const [indexOfAddress, setIndexAddress] = useState(0);
     const [indexOfEmail, setIndexEmail] = useState(0);
     const [indexOfPhone, setIndexPhone] = useState(0);
-    const [cancel,setCancel]=useState(false);
-    const text= (addressToEdit ? "Update" : 'Submit');
+    const text = (addressToEdit ? "Update" : 'Submit');
     const formRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (formRef.current !== null) {
@@ -102,7 +101,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
     const handleInput = (event: any) => {
         const name = event.target.name;
         const value = event.target.value;
-    
+
         setFormData({ ...formData, [name]: value })
     };
     const handleAddFieldsAddress = (e: any) => {
@@ -120,13 +119,14 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                 typeaddress: ""
             })
             setFormData({ ...formData, address });
-            
+
         }
-        else{
+        else {
             setError("plusButton", {
                 type: "manual",
                 message: "Atleast 1 Address Needed",
-            })}
+            })
+        }
     };
     const handleAddFieldsEmail = (e: any) => {
         const email = [...formData.email];
@@ -139,10 +139,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
     const handleChangeInput = (event: any, index: number, type: string) => {
         const { name, value } = event.target;
         const formDataCopy = { ...formData };
-
-        let req = Object.entries(formData.address[0]);
-        const linevalue: any = req[0][1];
-        if(value){
+        if (value) {
             clearErrors("plusButton")
         }
         formDataCopy[type][index][name.slice(0, -1)] = value;
@@ -196,12 +193,12 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                         <FormPart>
                             <InputDiv>
                                 <FeildDiv>
-                                    <Input {...register('firstname', { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: "First Name should be valid" } })} placeholder='First Name' value={formData.firstname} onChange={(e) => handleInput(e)} className={errors['firstname'] ? "error" : ""}/>
+                                    <Input {...register('firstname', { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: "First Name should be valid" } })} placeholder='First Name' value={formData.firstname} onChange={(e) => handleInput(e)} className={errors['firstname'] ? "error" : ""} />
                                     {errors.firstname && errors.firstname.type === "required" && (<ErrorText>First name is required</ErrorText>)}
                                     {errors.firstname && errors.firstname.type === "pattern" && (<ErrorText>Invalid First Name</ErrorText>)}
                                 </FeildDiv>
                                 <FeildDiv>
-                                    <Input {...register('lastname', { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: "Last Name should be valid" } })} placeholder='Last Name' value={formData.lastname} onChange={(e) => handleInput(e)} className={errors['lastname'] ? "error" : ""}/>
+                                    <Input {...register('lastname', { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: "Last Name should be valid" } })} placeholder='Last Name' value={formData.lastname} onChange={(e) => handleInput(e)} className={errors['lastname'] ? "error" : ""} />
                                     {errors.lastname && errors.lastname.type === "required" && (<ErrorText>Last name is required</ErrorText>)}
                                     {errors.lastname && errors.lastname.type === "pattern" && (<ErrorText>Invalid Last Name</ErrorText>)}
                                 </FeildDiv>
@@ -212,29 +209,29 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                 <Label>Address</Label>
                                 <PlusIcon {...register('plusButton')} onClick={(e) => handleAddFieldsAddress(e)} src={Plus} />
                             </LabIcDiv>
-                            {errors.plusButton ?.type=='manual' && <ErrrorTextPlus>Atleast 1 Address is Needed</ErrrorTextPlus>}
+                            {errors.plusButton?.type == 'manual' && <ErrrorTextPlus>Atleast 1 Address is Needed</ErrrorTextPlus>}
                             {formData.address.map((add: any, index: number) => (
                                 <InputDiscardDiv key={index}>
                                     <InputDiv1  >
                                         <FeildDiv>
-                                            <Input {...register(`line1${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='Line 1' value={add.line1} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`line1${index}`] ? "error" : ""}/>      
-                                             {errors['line1' + index]?.type === "required" && (<ErrorText>Line1 is required</ErrorText>)}
+                                            <Input {...register(`line1${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='Line 1' value={add.line1} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`line1${index}`] ? "error" : ""} />
+                                            {errors['line1' + index]?.type === "required" && (<ErrorText>Line1 is required</ErrorText>)}
                                             {errors['line1' + index]?.type === "pattern" && (<ErrorText>Invalid Line1</ErrorText>)}
 
                                         </FeildDiv>
 
                                         <FeildDiv>
-                                            <Input {...register(`line2${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='Line 2' value={add.line2} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`line2${index}`] ? "error" : ""}/>                                         
-                                             {errors['line2' + index]?.type === "required" && (<ErrorText>Line2 is required</ErrorText>)}
+                                            <Input {...register(`line2${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='Line 2' value={add.line2} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`line2${index}`] ? "error" : ""} />
+                                            {errors['line2' + index]?.type === "required" && (<ErrorText>Line2 is required</ErrorText>)}
                                             {errors['line2' + index]?.type === "pattern" && (<ErrorText>Invalid Line2</ErrorText>)}
                                         </FeildDiv>
                                         <FeildDiv>
-                                            <Input {...register(`city${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='City' value={add.city} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`city${index}`] ? "error" : ""}/>
+                                            <Input {...register(`city${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='City' value={add.city} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`city${index}`] ? "error" : ""} />
                                             {errors['city' + index]?.type === "required" && (<ErrorText>City is required</ErrorText>)}
                                             {errors['city' + index]?.type === "pattern" && (<ErrorText>Invalid City</ErrorText>)}
                                         </FeildDiv>
                                         <FeildDiv>
-                                            <Input {...register(`state${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='State' value={add.state} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`state${index}`] ? "error" : ""}/>
+                                            <Input {...register(`state${index}`, { required: true, pattern: { value: /^[a-zA-Z '.-]*$/, message: 'Line1 is required' } })} placeholder='State' value={add.state} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`state${index}`] ? "error" : ""} />
                                             {errors['state' + index]?.type === "required" && (<ErrorText>State is required</ErrorText>)}
                                             {errors['state' + index]?.type === "pattern" && (<ErrorText>Invalid State</ErrorText>)}
                                         </FeildDiv>
@@ -247,7 +244,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                             {errors['country' + index]?.type === "required" && (<ErrorText>country is required</ErrorText>)}
                                         </FeildDiv>
                                         <FeildDiv>
-                                            <Input {...register(`zipcode${index}`, { required: true, valueAsNumber: true })} placeholder='Zip code' value={add.zipcode} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`zipcode${index}`] ? "error" : ""}/>
+                                            <Input {...register(`zipcode${index}`, { required: true, valueAsNumber: true })} placeholder='Zip code' value={add.zipcode} onChange={(event) => handleChangeInput(event, index, 'address')} className={errors[`zipcode${index}`] ? "error" : ""} />
                                             {errors['zipcode' + index]?.type === "required" && (<ErrorText>Zipcode is required</ErrorText>)}
                                             {errors['zipcode' + index]?.type === "valueAsNumber" && (<ErrorText>Invalid Zipcode</ErrorText>)}
                                         </FeildDiv>
@@ -261,7 +258,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                             {errors['typeaddress' + index]?.type === "required" && (<ErrorText>Line1 is required</ErrorText>)}
                                         </FeildDiv>
                                     </InputDiv1>
-                                    <DiscardButton1 {...register('discardButton',)} onClick={(e) => handleDiscardAddress(index, e)} src={wrong} style={{ display: (formData.address.length>1) ? 'block' : 'none' }} />
+                                    <DiscardButton1 {...register('discardButton',)} onClick={(e) => handleDiscardAddress(index, e)} src={wrong} style={{ display: (formData.address.length > 1) ? 'block' : 'none' }} />
                                     {errors.discardButton?.type === "manual" && <ErrrorTextDiscard>Atleast 1 Address is Needed</ErrrorTextDiscard>}
                                 </InputDiscardDiv>
 
@@ -277,7 +274,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                     <InputDiv2>
                                         <FeildDiv>
                                             <Input {...register(`email${index}`, { required: true, pattern: { value: /^\S+@\S+\.\S+$/, message: 'Email is wrong' } })} placeholder='Email' value={email.email}
-                                                onChange={(event) => handleChangeInput(event, index, 'email')} className={errors[`email${index}`] ? "error" : ""}/>
+                                                onChange={(event) => handleChangeInput(event, index, 'email')} className={errors[`email${index}`] ? "error" : ""} />
                                             {errors['email' + index]?.type === "required" && (<ErrorText>Email is required</ErrorText>)}
                                             {errors['email' + index]?.type === "pattern" && (<ErrorText>Invalid Email</ErrorText>)}
                                         </FeildDiv>
@@ -291,7 +288,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                             {errors['typeemail' + index]?.type === "required" && (<ErrorText>Type Email is required</ErrorText>)}
                                         </FeildDiv>
                                     </InputDiv2>
-                                    <DiscardButton2 {...register('discardButton')} onClick={(e) => handleDiscardEmail(index, e)} src={wrong} style={{ display: (formData.address.length>1) ? 'block' : 'none' }} />
+                                    <DiscardButton2 {...register('discardButton')} onClick={(e) => handleDiscardEmail(index, e)} src={wrong} style={{ display: (formData.email.length > 1) ? 'block' : 'none' }} />
                                 </InputDiscardDiv>
                             ))}
                         </FormPart>
@@ -301,11 +298,11 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                 <PlusIcon src={Plus} onClick={(e) => handleAddFieldsPhone(e)} />
                             </LabIcDiv>
                             {formData.phone.map((phone: any, index: number) => (
-                                <InputDiscardDiv key={index}>
+                                <InputDiscardDiv>
                                     <InputDiv3 key={index}>
                                         <FeildDiv>
                                             <Input {...register(`phonenumber${index}`, { required: true })} value={phone.phonenumber} placeholder='Phone Number'
-                                                onChange={(event) => handleChangeInput(event, index, 'phone')} className={errors[`phonenumber${index}`] ? "error" : ""}/>
+                                                onChange={(event) => handleChangeInput(event, index, 'phone')} className={errors[`phonenumber${index}`] ? "error" : ""} />
                                             {errors['phonenumber' + index]?.type === "required" && (<ErrorText>Phone Number is required</ErrorText>)}
                                             {errors['phonenumber' + index]?.type === "pattern" && (<ErrorText>Invalid Phone Number</ErrorText>)}
                                         </FeildDiv>
@@ -319,7 +316,7 @@ function AddressFormPage({ onFormChange, addressToEdit }: any) {
                                             {errors['typephone' + index]?.type === "required" && <ErrorText>Enter Type Phone</ErrorText>}
                                         </FeildDiv>
                                     </InputDiv3>
-                                    <DiscardButton3 {...register('discardButton')} onClick={(e) => handleDiscardPhone(index, e)} src={wrong} style={{ display: (formData.address.length>1) ? 'block' : 'none' }} />
+                                    <DiscardButton3 {...register('discardButton')} onClick={(e) => handleDiscardPhone(index, e)} src={wrong} style={{ display: (formData.phone.length > 1) ? 'block' : 'none' }} />
                                 </InputDiscardDiv>
                             ))}
                         </FormPart>

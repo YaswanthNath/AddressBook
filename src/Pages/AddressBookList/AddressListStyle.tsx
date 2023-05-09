@@ -12,12 +12,13 @@ export const Table = styled.table`
     width:100%;
     border-collapse:collapse;
     border:1px solid black;
-    margin-left:5px;
+    margin-left:15px;
     margin-bottom:0px;
     @media (max-width: 400px) {
         width:95%;
         margin-left:0px;
         padding:0px;
+        margin-left:10px
     }
 `;
 export const TableDitems = styled.td`
@@ -30,9 +31,10 @@ export const TableDitems = styled.td`
     @media (max-width: 400px) {
         white-space: normal;
         font-size:12px;
-        padding:8px 0px;
+        padding:6px 0px;
         text-align:center;
         border:1px solid black;
+       
     }
 `;
 export const TableH = styled.thead`
@@ -58,18 +60,21 @@ export const ListCon = styled.div`
 export const NoDataDiv = styled.div`
     font-size:18px;
     font-weight:400;
+    @media (max-width: 400px) {
+        margin-left:0px;
+    }
 `;
 export const NoDataText = styled.div`
     font-size:16px;
     width:99.8%;
-   border:1px solid black;
+    border:1px solid black;
     margin-top:0px;
     text-align:center;
     border-top:none;
-    margin-left:5px;
+    margin-left:15px;
     margin-right:0px;
     @media (max-width: 400px) {
-        margin-left:0px;
+        margin-left:10px;
         width:94.5%;
         font-size:12px;
     }
@@ -78,6 +83,7 @@ export const HeaderHome = styled.div`
     width:100%  ;
     background:lightgrey;
     margin:10px;
+    margin-left:0px;
     padding:5px;
     margin-left:15px;  
     box-sizing:border-box;
@@ -123,13 +129,17 @@ export const AddressLink = styled.link`
 `;
 export const SearchHeader = styled.div`
     width:80%;
-    margin:10px 10px 10px 0px;
+    margin:10px 10px 10px 15px;
+    @media (max-width: 400px) {
+        margin:10px;
+       
+    }
 `;
 export const SearchBar = styled.input`
     width:50%;
     padding:10px auto 10px 10px;
     padding-left:15px;
-    margin:5px 0px 5px;
+    margin:5px 0px 5px 0px;
     font-size:18px;
     outline:none;
 `;
@@ -137,6 +147,13 @@ export const ViewAddressButton = styled.button`
     border:none;
     cursor:pointer;
     background:none;
+    &:hover {
+    background-color: lightblue;
+    width:70px;
+    height:30px;
+    border-radius:10px;
+    color:white;
+  }
 `;
 export const Buttons = styled.button`
     font-size:12px;
@@ -150,12 +167,12 @@ export const NoSearchItem = styled.div`
     margin-top:0px;
     text-align:center;
     border-top:none;
-    margin-left:5px;
+    margin-left:15px;
     margin-right:0px;
     font-size:16px;
     @media (max-width: 400px) {
         width:94.5%;
-        margin-left:0px;
+        margin-left:10px;
         font-size:12px;
     }
 `;

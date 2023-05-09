@@ -25,7 +25,7 @@ function AddressList({ Click, View }: any) {
         if (successMessage) {
             toast.success(successMessage, { position: toast.POSITION.BOTTOM_RIGHT });
             setSuccessMessage("");
-        }   
+        }
     }, [successMessage, setSuccessMessage]);
     useEffect(() => {
         if (formRef.current !== null) {
@@ -75,6 +75,7 @@ function AddressList({ Click, View }: any) {
     const handleDelete = (index: any) => {
         setAddressData((prevData: any[]) =>
             prevData.filter((user: any, i: number) => i !== index));
+        setSuccessMessage("Data deleted successful");
     }
     const items = AddressData;
     const filteredData = items.filter((item: any) =>
@@ -88,6 +89,103 @@ function AddressList({ Click, View }: any) {
     const handlePageChange = (page: any) => {
         setCurrentPage(page);
     };
+    let content;
+    if (viewAddress) {
+        return (
+          <Viewaddress state={selectedData} onFormChange={handleChaneView} />
+        );
+      }
+    else if (ClickCreate) {
+        content = (
+            <AddressFormPage onFormChange={handleSubmit} />
+        );
+    } else if (ClickEdit) {
+        content = (
+            <AddressFormPage onFormChange={handleSubmit} addressToEdit={AddressToEdit} />
+        );
+    } else if (homeClick) {
+        if (AddressData.length <= 0) {
+            content = (
+                <NoDataDiv>
+                    <Table>
+                        <TableH>
+                            <tr>
+                                <TableDitems>Name</TableDitems>
+                                <TableDitems>Phone Number</TableDitems>
+                                <TableDitems>Email</TableDitems>
+                                <TableDitems>Address</TableDitems>
+                                <TableDitems>Action</TableDitems>
+                            </tr>
+                        </TableH>
+                    </Table>
+                    <NoDataText>No data found</NoDataText>
+                </NoDataDiv>
+            );
+        } else {
+            content = (
+                <>
+                    <SearchHeader>
+                        <SearchBar type='text' placeholder='Search...' onChange={(e: any) => setSearchQuery(e.target.value)} />
+                    </SearchHeader>
+                    <Table>
+                        <TableH>
+                            <tr>
+                                <TableDitems>Name</TableDitems>
+                                <TableDitems>Phone Number</TableDitems>
+                                <TableDitems>Email</TableDitems>
+                                <TableDitems>Address</TableDitems>
+                                <TableDitems>Action</TableDitems>
+                            </tr>
+                        </TableH>
+                        {displayedData.map((item: any, index: number) => (
+                            <TableBody key={index}>
+                                <tr>
+                                    <TableDitems><ViewAddressButton onClick={() => handleView(item)}>{item.firstname}</ViewAddressButton></TableDitems>
+                                    <TableDitems>{item.phone.map((phoneitem: any, phoneindex: number) => {
+                                        const phoneNumber = phoneitem.phonenumber;
+                                        return (
+                                            <span key={phoneindex}>{phoneNumber}{phoneindex !== item.phone.length - 1 ? ',' : ''}</span>
+                                        );
+                                    })}
+                                    </TableDitems>
+                                    <TableDitems>{item.email.map((emailitem: any, emailindex: number) => {
+                                        const emailPart = emailitem.email;
+                                        return (
+                                            <span key={emailindex}>{emailPart}{emailindex !== item.email.length - 1 && ", "}</span>
+                                        )
+                                    })}</TableDitems>
+                                    <TableDitems>{item.address.map((addressitem: any, addressindex: number) => {
+                                        const addressPart = addressitem.state;
+                                        return (
+                                            <span key={addressindex}>{addressPart}{addressindex !== item.address.length - 1 && ','}</span>
+                                        )
+                                    })}
+                                    </TableDitems>
+                                    <TableDitems>
+                                        <Buttons onClick={() => handleEdit(index)}>Edit</Buttons>
+                                        <Buttons onClick={() => handleDelete(index)}>Delete</Buttons>
+                                    </TableDitems>
+                                </tr>
+                            </TableBody>
+                        ))}
+                    </Table>
+                    <div>
+                        {AddressData.length >= 5 && <NumberCarousel numPages={numPages} currentPage={currentPage} onPageChange={handlePageChange} />}
+                    </div>
+                    {SearchQuery && filteredData.length === 0 && (
+                        <>
+                            <NoSearchItem>
+                                Searched field does not exist
+                            </NoSearchItem>
+                        </>
+                    )}
+                </>
+            );
+        }
+    }
+
+
+
     return (
         <MainDiv >
             <HeaderHome ref={formRef}>
@@ -104,93 +202,10 @@ function AddressList({ Click, View }: any) {
             </HeaderHome>
             <Container>
                 <ListCon>
-                    {viewAddress ? <Viewaddress state={selectedData} onFormChange={handleChaneView} /> :
-
-                        (ClickCreate ?
-                            <>
-                                <AddressFormPage onFormChange={handleSubmit} />
-                            </>
-                            :
-                            <>
-                                {ClickEdit ?
-                                    <>
-                                        <AddressFormPage onFormChange={handleSubmit} addressToEdit={AddressToEdit} />
-                                    </>
-                                    :
-                                    <>
-                                        {homeClick && (
-                                            (AddressData.length <= 0) ?
-                                                <NoDataDiv>
-                                                    <Table>
-                                                        <TableH>
-                                                            <tr>
-                                                                <TableDitems>Name</TableDitems>
-                                                                <TableDitems>Phone Number</TableDitems>
-                                                                <TableDitems>Email</TableDitems>
-                                                                <TableDitems>Address</TableDitems>
-                                                                <TableDitems>Action</TableDitems>
-                                                            </tr>
-                                                        </TableH>
-                                                    </Table>
-                                                    <NoDataText>No data found</NoDataText>
-
-                                                </NoDataDiv>
-                                                :
-                                                <>
-                                                    <SearchHeader>
-                                                        <SearchBar type='text' placeholder='Search...' onChange={(e: any) => setSearchQuery(e.target.value)} />
-                                                    </SearchHeader>
-                                                    <Table>
-                                                        <TableH>
-                                                            <tr>
-                                                                <TableDitems>Name</TableDitems>
-                                                                <TableDitems>Phone Number</TableDitems>
-                                                                <TableDitems>Email</TableDitems>
-                                                                <TableDitems>Address</TableDitems>
-                                                                <TableDitems>Action</TableDitems>
-                                                            </tr>
-                                                        </TableH>
-                                                        {displayedData.map((item: any, index: number) => (
-                                                            <TableBody key={index}>
-                                                                <tr>
-                                                                    <TableDitems><ViewAddressButton onClick={() => handleView(item)}>{item.firstname}</ViewAddressButton></TableDitems>
-                                                                    <TableDitems>{item.phone.map((phoneitem: any, phoneindex: number) => (
-                                                                        <span key={phoneindex}>{phoneitem.phonenumber},</span>
-                                                                    ))}</TableDitems>
-                                                                    <TableDitems>{item.email.map((emailitem: any, emailindex: number) => (
-                                                                        <span key={emailindex}>{emailitem.email},</span>
-                                                                    ))}</TableDitems>
-                                                                    <TableDitems>{item.address.map((addressitem: any, addressindex: number) => (
-                                                                        <span key={addressindex}>{addressitem.state},</span>
-                                                                    ))}</TableDitems>
-                                                                    <TableDitems>
-                                                                        <Buttons onClick={() => handleEdit(index)}>Edit</Buttons>
-                                                                        <Buttons onClick={() => handleDelete(index)}>Delete</Buttons>
-                                                                    </TableDitems>
-                                                                </tr>
-                                                            </TableBody>
-                                                        ))}
-                                                    </Table>
-                                                    <div>
-                                                        {AddressData.length >= 2 && <NumberCarousel numPages={numPages} currentPage={currentPage} onPageChange={handlePageChange} />}
-                                                    </div>
-                                                </>
-                                        )}
-                                    </>
-                                }
-                                {SearchQuery && filteredData.length === 0 && (
-                                    <>
-                                        <NoSearchItem>
-                                            Searched field does not exist
-                                        </NoSearchItem>
-                                    </>
-                                )}
-                            </>
-                        )
-                    }
 
                 </ListCon>
             </Container>
+            {content}
             <ToastContainer />
         </MainDiv >
     )
